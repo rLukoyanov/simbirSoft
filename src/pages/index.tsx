@@ -32,6 +32,12 @@ export default function Home() {
                         gitHub: @rLukoyanov
                     </a>
                 </div>
+                <div>
+                    <a target="_blank" href="https://github.com/rLukoyanov/simbirSoft">
+                        gitHub: this project
+                    </a>
+                </div>
+                
             </main>
         </>
     );
