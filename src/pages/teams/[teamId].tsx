@@ -6,8 +6,16 @@ import { Table, Spin, DatePicker, message } from "antd";
 import type { ColumnsType } from "antd/es/table";
 
 import axios from "axios";
+import Image from "next/image";
 
-const columns: ColumnsType<any> = [
+interface ColumnType {
+    title: string;
+    dataIndex: string[] | string;
+    key: string;
+    render?: Function;
+}
+
+const columns: ColumnsType<ColumnType> = [
     {
         title: "Местоположение",
         dataIndex: ["area", "name"],
@@ -19,7 +27,7 @@ const columns: ColumnsType<any> = [
         key: "homeTeam",
         render: (url) => (
             <div>
-                <img width={50} height={50} src={url} alt="crest" />
+                <Image width={50} height={50} src={url} alt="crest" />
             </div>
         ),
     },
@@ -29,7 +37,7 @@ const columns: ColumnsType<any> = [
         key: "awayTeam",
         render: (url) => (
             <div>
-                <img width={50} height={50} src={url} alt="crest" />
+                <Image width={50} height={50} src={url} alt="crest" />
             </div>
         ),
     },
@@ -77,7 +85,7 @@ const TeamCalendar = ({ query }: any) => {
             } catch (err: any) {
                 messageApi.open({
                     type: "error",
-                    content: "Записи не найдены",
+                    content: "Записи не найдены, попробуйте позже",
                 });
             }
         };
@@ -96,26 +104,10 @@ const TeamCalendar = ({ query }: any) => {
             });
             setMatchesData(data);
         } catch (err: any) {
-            switch (err.response.status) {
-                case 429:
-                    messageApi.open({
-                        type: "error",
-                        content: "Лимит на запросы",
-                    });
-                    break;
-                case 403:
-                    messageApi.open({
-                        type: "error",
-                        content: "Записи не найдены",
-                    });
-                    break;
-                default:
-                    messageApi.open({
-                        type: "error",
-                        content: err.response.data,
-                    });
-                    break;
-            }
+            messageApi.open({
+                type: "error",
+                content: "Записи не найдены, попробуйте позже",
+            });
         }
     };
 

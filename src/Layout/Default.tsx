@@ -1,34 +1,26 @@
 import React, { useState } from "react";
-import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-} from "@ant-design/icons";
+import { UploadOutlined, UserOutlined } from "@ant-design/icons";
 import { Layout, Menu, Button } from "antd";
 import { useRouter } from "next/router";
 
 const { Header, Sider, Content } = Layout;
 
-interface IProps {
+interface PropsTypes {
     children: React.ReactNode;
 }
 
-export const Default = ({ children }: IProps) => {
-    const [collapsed, setCollapsed] = useState(false);
+export const Default = ({ children }: PropsTypes) => {
     const router = useRouter();
     return (
         <Layout>
-            <Sider trigger={null} collapsible collapsed={collapsed}>
+            <Header style={{ background: "#fff" }}>
                 <Menu
-                    theme="dark"
-                    mode="inline"
-                    defaultSelectedKeys={["CompetitionList"]}
+                    theme="light"
+                    mode="horizontal"
                     items={[
                         {
                             key: "CompetitionList",
-                            icon: <UserOutlined />,
+                            icon: <UploadOutlined />,
                             label: "Список лиг",
                             onClick: () => {
                                 router.push("/competition");
@@ -36,7 +28,7 @@ export const Default = ({ children }: IProps) => {
                         },
                         {
                             key: "TeamsList",
-                            icon: <VideoCameraOutlined />,
+                            icon: <UserOutlined />,
                             label: "Список команд",
                             onClick: () => {
                                 router.push("/teams");
@@ -44,27 +36,8 @@ export const Default = ({ children }: IProps) => {
                         },
                     ]}
                 />
-            </Sider>
+            </Header>
             <Layout>
-                <Header style={{ padding: 0 }}>
-                    <Button
-                        type="text"
-                        icon={
-                            collapsed ? (
-                                <MenuUnfoldOutlined />
-                            ) : (
-                                <MenuFoldOutlined />
-                            )
-                        }
-                        onClick={() => setCollapsed(!collapsed)}
-                        style={{
-                            fontSize: "16px",
-                            width: 64,
-                            height: 64,
-                            color: "#fff",
-                        }}
-                    />
-                </Header>
                 <Content
                     style={{
                         margin: "24px 16px",

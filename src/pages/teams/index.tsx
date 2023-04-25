@@ -7,7 +7,14 @@ import axios from "axios";
 
 import { find } from "@/helpers";
 
-const columns: ColumnsType<any> = [
+interface ColumnType {
+    title: string;
+    dataIndex: string[] | string;
+    key: string;
+    render?: Function;
+}
+
+const columns: ColumnsType<ColumnType> = [
     {
         title: "name",
         dataIndex: ["name"],
@@ -54,7 +61,7 @@ const TeamsList = () => {
             } catch (err: any) {
                 messageApi.open({
                     type: "error",
-                    content: "Записи не найдены",
+                    content: "Записи не найдены, попробуйте позже",
                 });
             }
         };

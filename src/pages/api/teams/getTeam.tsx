@@ -6,22 +6,17 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    try {
-        if (req.body.dateFrom && req.body.dateFrom) {
-            const { data } = await apiClient.get(
-                `/teams/${req.body.teamId}/matches?dateFrom=${req.body.dateFrom}&dateTo=${req.body.dateTo}`
-            );
-            res.json(data);
-        } else {
-            const data = await apiClient.get(
-                `/teams/${req.body.teamId}/matches`
-            );
-            console.log(data);
+    if (req.body.dateFrom && req.body.dateFrom) {
+        const { data } = await apiClient.get(
+            `/teams/${req.body.teamId}/matches?dateFrom=${req.body.dateFrom}&dateTo=${req.body.dateTo}`
+        );
+        res.json(data);
+    } else {
+        const { data, status } = await apiClient.get(
+            `/teams/${req.body.teamId}/matches`
+        );
 
-            res.json(data);
-        }
-    } catch (e: any) {
-        res.statusCode = e.response.status;
-        res.json(e.response.data);
+        res.statusCode = status;
+        res.json(data);
     }
 }

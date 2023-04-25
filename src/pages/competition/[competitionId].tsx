@@ -92,26 +92,10 @@ const CompetitionCalendar = ({ query }: any) => {
                 setMatchesData(data);
                 setDisplayData(data.matches);
             } catch (err: any) {
-                switch (err.response.status) {
-                    case 429:
-                        messageApi.open({
-                            type: "error",
-                            content: "Лимит на запросы подождите 60 секунд",
-                        });
-                        break;
-                    case 403:
-                        messageApi.open({
-                            type: "error",
-                            content: "Записи не найдены",
-                        });
-                        break;
-                    default:
-                        messageApi.open({
-                            type: "error",
-                            content: err.response.data,
-                        });
-                        break;
-                }
+                messageApi.open({
+                    type: "error",
+                    content: "Записи не найдены, попробуйте позже",
+                });
             }
         };
         fetch();

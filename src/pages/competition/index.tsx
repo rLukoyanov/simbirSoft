@@ -5,7 +5,14 @@ import axios from "axios";
 import { find } from "@/helpers";
 import Image from "next/image";
 
-const columns: ColumnsType<any> = [
+interface ColumnType {
+    title: string;
+    dataIndex: string[] | string;
+    key: string;
+    render?: Function;
+}
+
+const columns: ColumnsType<ColumnType> = [
     {
         title: "Название",
         dataIndex: ["name"],
@@ -52,7 +59,7 @@ const CompetitionList = () => {
             } catch (err: any) {
                 messageApi.open({
                     type: "error",
-                    content: "Записи не найдены",
+                    content: "Записи не найдены, попробуйте позже",
                 });
             }
         };
