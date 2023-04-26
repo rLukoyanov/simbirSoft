@@ -39,7 +39,7 @@ const columns: ColumnsType<ColumnType> = [
         key: "type",
     },
     {
-        title: "Детали",
+        title: "Действия",
         dataIndex: "id",
         key: "details",
         render: (url) => <a href={`competition/${url}`}>Детали</a>,
@@ -93,6 +93,7 @@ const CompetitionList = () => {
                         style={{ marginBottom: 20 }}
                     />
                     <Table
+                        rowKey="id"
                         scroll={{ x: 1000 }}
                         columns={columns}
                         dataSource={displayData}
