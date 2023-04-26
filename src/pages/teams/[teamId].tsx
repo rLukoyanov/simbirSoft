@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 import { Table, Spin, DatePicker, message } from "antd";
 import type { ColumnsType } from "antd/es/table";
 
 import axios from "axios";
-import Image from "next/image";
 
-interface ColumnType {
-    title: string;
-    dataIndex: string[] | string;
-    key: string;
-    render?: Function;
-}
+import { ITable } from "@/types";
+import { TABLE_X } from "@/helpers";
 
-const columns: ColumnsType<ColumnType> = [
+const columns: ColumnsType<ITable> = [
     {
         title: "Местоположение",
         dataIndex: ["area", "name"],
@@ -124,9 +120,10 @@ const TeamCalendar = ({ query }: any) => {
             {matchesData ? (
                 <div>
                     <Table
-                        scroll={{ x: 1000 }}
+                        scroll={{ x: TABLE_X }}
                         columns={columns}
                         dataSource={matchesData.matches}
+                        rowKey="id"
                     />
                 </div>
             ) : (
