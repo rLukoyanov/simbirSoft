@@ -10,12 +10,12 @@ import { ITable, ITeams } from "@/types";
 
 const columns: ColumnsType<ITable> = [
     {
-        title: "name",
+        title: "Название",
         dataIndex: ["name"],
         key: "name",
     },
     {
-        title: "crest",
+        title: "Эмблема",
         dataIndex: ["crest"],
         key: "crest",
         render: (url) => (
@@ -25,17 +25,28 @@ const columns: ColumnsType<ITable> = [
         ),
     },
     {
-        title: "clubColors",
+        title: "Цвета команды",
         dataIndex: "clubColors",
         key: "clubColors",
     },
     {
-        title: "founded",
+        title: "Открыт",
         dataIndex: ["founded"],
         key: "founded",
     },
     {
-        title: "Детали",
+        title: "Сайт команды",
+        dataIndex: ["website"],
+        key: "website",
+        render: (url) => (
+            <a target="_blank" href={url}>
+                {url}
+            </a>
+        ),
+    },
+
+    {
+        title: "Действия",
         dataIndex: "id",
         key: "details",
         render: (url) => <a href={`teams/${url}`}>Детали</a>,

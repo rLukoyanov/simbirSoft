@@ -38,6 +38,16 @@ const columns: ColumnsType<ITable> = [
         ),
     },
     {
+        title: "Cчет",
+        dataIndex: ["score", "fullTime"],
+        key: "score",
+        render: (data) => (
+            <div>
+                {data.home}:{data.away}
+            </div>
+        ),
+    },
+    {
         title: "Победитель",
         dataIndex: ["score", "winner"],
         key: "winner",

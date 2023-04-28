@@ -35,7 +35,7 @@ const columns: ColumnsType<ITable> = [
         key: "type",
     },
     {
-        title: "Детали",
+        title: "Действия",
         dataIndex: "id",
         key: "details",
         render: (url) => <a href={`competition/${url}`}>Детали</a>,

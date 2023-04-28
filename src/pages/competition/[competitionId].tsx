@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import axios from "axios";
 
-import { Table, Spin, DatePicker, message } from "antd";
+import { Table, Spin, DatePicker, message, Descriptions } from "antd";
 import type { ColumnsType } from "antd/es/table";
 
 import { ITable } from "@/types";
@@ -56,6 +56,16 @@ const columns: ColumnsType<ITable> = [
                     : team === "DRAW"
                     ? "Ничья"
                     : "Команда 2"}
+            </div>
+        ),
+    },
+    {
+        title: "Счет",
+        dataIndex: ["score", "fullTime"],
+        key: "fullTime",
+        render: (date) => (
+            <div>
+                {date.home}:{date.away}
             </div>
         ),
     },
@@ -129,11 +139,29 @@ const CompetitionCalendar = ({ query }: any) => {
             </div>
             {matchesData ? (
                 <div>
-                    {matchesData.competition.name}
+                    <Descriptions>
+                        <Descriptions.Item label="Название">
+                            {matchesData.competition.name}
+                        </Descriptions.Item>
+                        <Descriptions.Item label="Тип">
+                            {matchesData.competition.type}
+                        </Descriptions.Item>
+                        <Descriptions.Item label="Код">
+                            {matchesData.competition.code}
+                        </Descriptions.Item>
+                    </Descriptions>
+
+                    <Image
+                        width={50}
+                        height={50}
+                        src={matchesData.competition.emblem}
+                        alt="emblem"
+                    />
                     <Table
                         scroll={{ x: TABLE_X }}
                         columns={columns}
                         dataSource={displayData}
+                        rowKey="id"
                     />
                 </div>
             ) : (
