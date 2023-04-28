@@ -8,14 +8,10 @@ import axios from "axios";
 import { Table, Spin, DatePicker, message, Descriptions } from "antd";
 import type { ColumnsType } from "antd/es/table";
 
-interface ColumnType {
-    title: string;
-    dataIndex: string[] | string;
-    key: string;
-    render?: Function;
-}
+import { ITable } from "@/types";
+import { TABLE_X } from "@/helpers";
 
-const columns: ColumnsType<ColumnType> = [
+const columns: ColumnsType<ITable> = [
     {
         title: "Местоположение",
         dataIndex: ["area", "name"],
@@ -162,7 +158,7 @@ const CompetitionCalendar = ({ query }: any) => {
                         alt="emblem"
                     />
                     <Table
-                        scroll={{ x: 1000 }}
+                        scroll={{ x: TABLE_X }}
                         columns={columns}
                         dataSource={displayData}
                         rowKey="id"

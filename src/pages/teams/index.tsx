@@ -5,16 +5,10 @@ import Image from "next/image";
 
 import axios from "axios";
 
-import { find } from "@/helpers";
+import { TABLE_X, find } from "@/helpers";
+import { ITable, ITeams } from "@/types";
 
-interface ColumnType {
-    title: string;
-    dataIndex: string[] | string;
-    key: string;
-    render?: Function;
-}
-
-const columns: ColumnsType<ColumnType> = [
+const columns: ColumnsType<ITable> = [
     {
         title: "Название",
         dataIndex: ["name"],
@@ -60,7 +54,7 @@ const columns: ColumnsType<ColumnType> = [
 ];
 
 const TeamsList = () => {
-    const [teamsData, setTeamsData] = useState<any>();
+    const [teamsData, setTeamsData] = useState<ITeams>();
     const [messageApi, contextHolder] = message.useMessage();
     const [displayData, setDisplayData] = useState<any>();
     useEffect(() => {
@@ -80,11 +74,11 @@ const TeamsList = () => {
     }, []);
 
     const handleChange = (e: any) => {
-        const filteredIndexes = find(e.target.value, teamsData.teams);
+        const filteredIndexes = find(e.target.value, teamsData?.teams);
 
         const filteredArray: any = [];
         for (let i = 0; i < filteredIndexes.length; i++) {
-            filteredArray.push(teamsData.teams[filteredIndexes[i]]);
+            filteredArray.push(teamsData?.teams[filteredIndexes[i]]);
         }
         setDisplayData(filteredArray);
     };
@@ -100,9 +94,10 @@ const TeamsList = () => {
                         style={{ marginBottom: 20 }}
                     />
                     <Table
-                        scroll={{ x: 1000 }}
+                        scroll={{ x: TABLE_X }}
                         columns={columns}
                         dataSource={displayData}
+                        rowKey="id"
                     />
                 </div>
             ) : (

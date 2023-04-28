@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { Table, Spin, Input, message } from "antd";
 import type { ColumnsType } from "antd/es/table";
+
 import axios from "axios";
-import { find } from "@/helpers";
-import Image from "next/image";
 
-interface ColumnType {
-    title: string;
-    dataIndex: string[] | string;
-    key: string;
-    render?: Function;
-}
+import { TABLE_X, find } from "@/helpers";
+import { ICompetitions, ITable } from "@/types";
 
-const columns: ColumnsType<ColumnType> = [
+const columns: ColumnsType<ITable> = [
     {
         title: "Название",
         dataIndex: ["name"],
@@ -47,7 +43,7 @@ const columns: ColumnsType<ColumnType> = [
 ];
 
 const CompetitionList = () => {
-    const [competitionsData, setCompetitionsData] = useState<any>();
+    const [competitionsData, setCompetitionsData] = useState<ICompetitions>();
     const [displayData, setDisplayData] = useState<any>();
     const [messageApi, contextHolder] = message.useMessage();
     useEffect(() => {
@@ -69,13 +65,13 @@ const CompetitionList = () => {
     const handleChange = (e: any) => {
         const filteredIndexes = find(
             e.target.value,
-            competitionsData.competitions
+            competitionsData?.competitions
         );
 
         const filteredArray: any = [];
         for (let i = 0; i < filteredIndexes.length; i++) {
             filteredArray.push(
-                competitionsData.competitions[filteredIndexes[i]]
+                competitionsData?.competitions[filteredIndexes[i]]
             );
         }
         console.info(filteredArray);
@@ -94,7 +90,7 @@ const CompetitionList = () => {
                     />
                     <Table
                         rowKey="id"
-                        scroll={{ x: 1000 }}
+                        scroll={{ x: TABLE_X }}
                         columns={columns}
                         dataSource={displayData}
                     />
